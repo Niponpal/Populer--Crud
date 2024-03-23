@@ -1,0 +1,209 @@
+﻿@model PMS.ModelVm.PopularVm
+@{
+
+}
+
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center">User Registration Form</h2>
+                    <form asp-action="CreateOrEdit" asp-controller="Populer" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="UserName">Username:</label>
+                            <input asp-for="Name" type="text" class="form-control" id="Name" name="Name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Srell No">Serll No:</label>
+                            <input asp-for="SrlNO" type="text" class="form-control" id="SrlNO" name="SrlNO" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ProdcutCode">ProdcutCode:</label>
+                            <input asp-for="ProductCode" type="text" class="form-control" id="ProductCode" name="ProductCode" required>
+                        </div>
+                     
+
+                        <div class="form-group">
+                            <label for="Image1">Image:</label>
+                            <input asp-for="Image1" id="FileUpload" name="photo" onchange="PreviewImage()" type="file" placeholder="Enter Your Imaga" id="Image1" />
+                        </div>
+                        @*  Image show Code *@
+                        <div class="form-group">
+                            <img src="~/Image/@Model.Image1" id="UploadFile" class="img-thumbnail" style="width:170px;" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Image2 ">Image:</label>
+                            <input asp-for="Image2" id="FileUpload2" name="photo2" onchange="PreviewImage2()" type="file" placeholder="Enter Your Imaga" />
+                        </div>
+                        <div class="form-group">
+                            <img src="~/Image/@Model.Image2" id="UploadFile2" class="img-thumbnail" style="width:170px;" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Image3 ">Image:</label>
+                            <input asp-for="Image3" id="FileUpload3" name="photo3" onchange="PreviewImage3()" type="file" placeholder="Enter Your Imaga" id="Image3" />
+                        </div>
+                        <div class="form-group">
+                            <img src="~/Image/@Model.Image3" id="UploadFile3" class="img-thumbnail" style="width:170px;" />
+                        </div>
+                      
+                        <div class="form-group">
+                            <label for="Location">Location:</label>
+                            <input asp-for="Location" type="text" class="form-control" id="Location" name="Location" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="GoogleMap">GoogleMap:</label>
+                            <input asp-for="GoogleMap" type="text" class="form-control" id="GoogleMap" name="GoogleMap" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="SomeDetils">Some Detils:</label>
+                            <input asp-for="SomeDetail" type="text" class="form-control" id="SomeDetail" name="SomeDetail" required>
+                        </div>
+                          
+                        <div class="form-group">
+                            <label for="MoreDetail">More Detils:</label>
+                            <input asp-for="MoreDetail" type="text" class="form-control" id="MoreDetail" name="MoreDetail" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Phone">Phone:</label>
+                            <input asp-for="Phone" type="text" class="form-control" id="Phone" name="Phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="Email">Email:</label>
+                            <input asp-for="Email" type="text" class="form-control" id="Email" name="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="Price">Prices:</label>
+                            <input asp-for="Price" type="text" class="form-control" id="Price" name="Price" required>
+                        </div>
+                       
+                        <button type="submit" class="btn btn-primary btn-block mt-3">Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@* Image Show kora jono  *@
+
+@section Scripts {
+    <script>
+        function PreviewImage() {
+            var preview = document.getElementById("UploadFile");
+            var fileInput = document.getElementById("FileUpload");
+
+            // Ensure that the file input has files
+            if (fileInput.files && fileInput.files[0]) {
+                var reader = new FileReader();
+
+
+                reader.onload = function (e) {
+                    preview.src = e.target.result; // Set the source of the preview image to the base64-encoded image data
+                };
+
+
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+
+        function PreviewImage2() {
+            var preview = document.getElementById("UploadFile2");
+            var fileInput = document.getElementById("FileUpload2");
+
+            // Ensure that the file input has files
+            if (fileInput.files && fileInput.files[0]) {
+                var reader = new FileReader();
+
+
+                reader.onload = function (e) {
+                    preview.src = e.target.result; // Set the source of the preview image to the base64-encoded image data
+                };
+
+
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+
+        }
+
+        function PreviewImage3() {
+            var preview = document.getElementById("UploadFile3");
+            var fileInput = document.getElementById("FileUpload3");
+
+            // Ensure that the file input has files
+            if (fileInput.files && fileInput.files[0]) {
+                var reader = new FileReader();
+
+
+                reader.onload = function (e) {
+                    preview.src = e.target.result; // Set the source of the preview image to the base64-encoded image data
+                };
+
+
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+    </script>
+    @*    img ajex code *@
+
+    <script>
+        $(document).ready(function () {
+            $('form').submit(function (e) {
+                e.preventDefault();
+
+                var formData = new FormData($(this)[0]);
+
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: $(this).attr('method'),
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: response.message,
+                                showConfiguratonButton: false,
+                                timer: 1500
+                            }).then(function () {
+                                window.location.href = '@Url.Action("Index", "Populer")';
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Oops...",
+                                text: response.message,
+                            });
+                        }
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Data failed!'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+
+            }
+
+
+
+
+

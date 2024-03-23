@@ -1,0 +1,46 @@
+﻿@model PMS.ModelVm.ContactVm
+@{
+
+}
+
+
+<div class="container  mt-5">
+    <div class="card ">
+        <div class="card-header">
+            <h5 class="card-title">User Details</h5>
+        </div>
+        <div class="card-body ">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>ID:  <span>@Model.Id</span></h6>                  
+                </div>
+            </div>
+                <div class="row">
+                <div class="col-md-6">
+                    <h6 style="font-size:30px">Name:<span style="font-size:45px">@Model.Name</span></h6>
+                </div>
+                </div>
+              
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>Email: <span>@Model.Email</span></h6>                   
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>Phone:<span>@Model.Phone</span></h6>
+                </div>
+            </div>
+                <div class="row">
+                    <div class="col-md-6">
+                    <h6>TextArea:  <span>@Model.TextArea</span></h6>                   
+                    </div>
+                </div>
+           
+        </div>
+        <div class="card-footer">
+            <a href="#" class="btn btn-primary">Edit</a>
+        </div>
+    </div>
+</div>
+

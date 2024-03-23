@@ -1,0 +1,86 @@
+﻿@model PMS.ModelVm.PaymentVm
+@{
+
+}
+
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title text-center">Payment Form</h5>
+        </div>
+        <div class="card-body">
+            <form asp-action="CreateOrEdit" asp-controller="Payment" method="post">
+              
+                <div class="form-group">
+                    <label for="transId">Transaction ID:</label>
+                    <input asp-for="TransId" type="text" class="form-control mt-2" id="transId" placeholder="Enter transaction ID">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input asp-for="Email" type="email" class="form-control mt-2" id="email" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label for="isPaymentConfirm">Payment Confirmation:</label>
+                    <input asp-for="IsPaymentConfirm" type="text" class="form-control mt-2" id="isPaymentConfirm" placeholder="Enter payment confirmation">
+                </div>
+                <div class="form-group">
+                    <label for="cartItems">Cart Items:</label>
+                    <input asp-for="CartItems" type="text" class="form-control mt-2" id="cartItems" placeholder="Enter cart items">
+                </div>
+                <div class="form-group">
+                    <label for="orderTime">Order Time:</label>
+                    <input asp-for="OrderTime" type="text" class="form-control mt-2" id="orderTime" placeholder="Enter order time">
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            debugger;
+            $('form').submit(function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: $(this).attr('method'),
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: response.message,
+                                showConfiguratonButton: false,
+                                timer: 1500
+                            }).then(function () {
+                                window.location.href = '@Url.Action("Index", "Payment")';
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: response.message
+                            });
+                        }
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Something went wrong!",
+                            footer: '<a href="#">Why do I have this issue?</a>'
+                        });
+                    }
+                });
+            });
+        });
+
+    </script>
+}

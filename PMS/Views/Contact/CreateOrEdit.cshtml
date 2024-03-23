@@ -1,0 +1,83 @@
+﻿@model PMS.ModelVm.ContactVm
+@{
+    
+}
+
+
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4 display-4">Contact Page</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form asp-action="CreateOrEdit" asp-controller="Contact">
+                <div class="form-group mt-3">
+                    <label for="UserName" class="font-weight-bold h5">Username:</label>
+                    <input asp-for="Name" type="text" class="form-control form-control-lg" placeholder="Enter your username" id="UserName" name="Name" required>
+                </div>
+                <div class="form-group mt-3">
+                    <label for="Email" class="font-weight-bold h5">Email:</label>
+                    <input asp-for="Email" type="email" class="form-control form-control-lg" placeholder="Enter your email" id="Email" name="Email" required>
+                </div>
+                <div class="form-group mt-3">
+                    <label for="Phone" class="font-weight-bold h5">Phone:</label>
+                    <input asp-for="Phone" type="text" class="form-control form-control-lg" placeholder="Enter your phone number" id="Phone" name="Phone" required>
+                </div>
+                <div class="form-group mt-3">
+                    <label for="TextArea" class="font-weight-bold h5">Textarea:</label>
+                    <textarea asp-for="TextArea" class="form-control form-control-lg" placeholder="Enter your message" id="TextArea" name="TextArea" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg btn-block mt-3">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            debugger;
+            $('form').submit(function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: $(this).attr('method'),
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: response.message,
+                                showConfiguratonButton: false,
+                                timer: 1500
+                            }).then(function () {
+                                window.location.href = '@Url.Action("Index", "Contact")';
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: response.message
+                            });
+                        }
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Something went wrong!",
+                            footer: '<a href="#">Why do I have this issue?</a>'
+                        });
+                    }
+                });
+            });
+        });
+
+    </script>
+}
+
+
+

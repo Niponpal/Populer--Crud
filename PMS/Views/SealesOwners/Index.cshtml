@@ -1,0 +1,41 @@
+﻿@model IEnumerable<PMS.ModelVm.SealesOwnersVm>
+@{
+
+}
+
+<a asp-action="CreateOrEdit" asp-controller="SealesOwners" class="btn btn-dark mt-3" type="sumit">Input</a>
+
+<table class="table table-bordered table-responsive" id="SealsOwnertable">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>UserName</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var itam in Model)
+        {
+            <tr>
+                <td>@itam.Id</td>
+                <td>@itam.Name</td>
+                <td>@itam.Email</td>
+                <td>@itam.Phone</td>
+                <td>
+                    <a class="btn btn-primary" asp-action="CreateOrEdit" asp-controller="SealesOwners" asp-route-id="@itam.Id">Edit</a>
+                    <a class="btn btn-danger" asp-action="Delted" asp-controller="SealesOwners" onclick="confirm('are you sure')" asp-route-id="@itam.Id">Delted</a>
+                    <a class="btn btn-primary" asp-action="Details" asp-controller="SealesOwners" asp-route-id="@itam.Id">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        new DataTable('#SealsOwnertable');
+    </script>
+}
+

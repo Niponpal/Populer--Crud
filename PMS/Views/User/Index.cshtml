@@ -1,0 +1,43 @@
+﻿@model IEnumerable<PMS.ModelVm.UserVm>
+@{
+    int idNo = 1;
+}
+
+<a asp-action="CreateOrEdit" asp-controller="User" class="btn btn-dark mt-3" type="sumit">Input</a>
+
+<table class="table table-bordered table-responsive" id="UserTable">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>UserName</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+
+            <tr>
+                <td>@idNo</td>
+                <td>@item.UserName</td>
+                <td>@item.EMail</td>
+                <td>@item.Password</td>
+                <td>
+                    <a class="btn btn-primary" asp-action="CreateOrEdit" asp-controller="User" asp-route-id="@item.Id">Edit</a>
+                    <a class="btn btn-danger" asp-action="Delted" asp-controller="User" onclick="confirm('are you sure')" asp-route-id="@item.Id">Delted</a>
+                    <a class="btn btn-primary" asp-action="Details" asp-controller="User" asp-route-id="@item.Id">Details</a>
+                </td>
+            </tr>
+            idNo++;
+        }
+    </tbody>
+</table>
+
+
+@section Scripts {
+    <script>
+        new DataTable('#UserTable');
+    </script>
+}

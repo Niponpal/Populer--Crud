@@ -1,0 +1,46 @@
+﻿@model IEnumerable<PMS.ModelVm.ContactVm>
+@{
+    int idNo = 1;
+}
+
+<a asp-action="CreateOrEdit" asp-controller="Contact" class="btn btn-dark mt-3" type="sumit">Input</a>
+
+<table class="table table-bordered table-responsive" id="Contacttable">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>UserName</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>TextArea</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var itam in Model)
+        {
+            <tr>
+                <td>@idNo</td>
+                <td>@itam.Name</td>
+                <td>@itam.Email</td>
+                <td>@itam.Phone</td>
+                <td>@itam.TextArea</td>
+                <td>
+                   
+                    <a class="btn btn-primary" asp-action="CreateOrEdit" asp-controller="Contact" asp-route-id="@itam.Id">Edit</a>
+                    <a class="btn btn-primary" asp-action="Delted" asp-controller="Contact" asp-route-id="@itam.Id">Delted</a>
+                    <a class="btn btn-primary" asp-action="Detials" asp-controller="Contact" asp-route-id="@itam.Id">Detials</a>
+                   
+                </td>
+            </tr>
+            idNo++;
+        }
+    </tbody>
+</table>
+
+
+@section Scripts {
+    <script>
+        new DataTable('#Contacttable');
+    </script>
+}
